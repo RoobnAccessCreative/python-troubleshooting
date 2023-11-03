@@ -1,0 +1,25 @@
+import turtle
+
+BLUE="#0000ff"
+PINK="#ff00ff"
+GREEN="#00ff00"
+RED = "#891515"
+
+def drawSquare(size, colour):
+    turtle.color(colour)
+    turtle.pendown()
+    for i in range(4):
+        turtle.forward(size)
+        turtle.right(90)
+    turtle.penup()
+
+turtle.width(width= 10)
+turtle.speed(10) 
+turtle.setheading(0)
+drawSquare(100, RED)
+turtle.forward(90)
+turtle.right(90)
+turtle.forward(10)
+drawSquare(80, GREEN)
+
+turtle.exitonclick()
