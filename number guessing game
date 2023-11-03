@@ -1,0 +1,28 @@
+import random
+
+
+def guess():
+    print()
+    num = int(input("Enter your guess: "))
+    return num
+print("----------------------------------------")
+print("     WELCOME TO THE GUESSING GAME")
+print("----------------------------------------")
+print()
+print("The objective is to guess the number I'm thinking of.")
+print("I will give you clues after your first guess.")
+secretNumber = random.randint(1,100)
+print("I have thought of a number from 1-100")
+numGuessed = guess()
+while numGuessed != secretNumber:
+    if numGuessed < secretNumber:
+        print("Guess is too low, guess higher!")
+    else:
+        print("Guess is too high, guess lower!")
+    numGuessed = guess()
+print()
+print("             CORRRRRECT!!!")
+print()
+print("----------------------------------------")
+print("          THANKS FOR PLAYING")
+print("----------------------------------------")
