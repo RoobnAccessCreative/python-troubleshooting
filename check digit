@@ -34,7 +34,7 @@ def ISBNcheck(ISBN):
 while True:
     choice = input("Enter the ISBN number\n—> ")
     if len(choice) == 13:
-        if choice.isnumeric is True:#doesnt register as numeric
+        if choice.isnumeric() is True:
             break
         else:
             print("That ISBN number is incorrect.")
