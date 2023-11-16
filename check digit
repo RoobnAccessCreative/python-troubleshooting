@@ -1,0 +1,43 @@
+def ISBNcheck(ISBN):
+
+    # Split the ISBN into the Unique ID and the check digit
+    unique_id = []
+    for i in range(len(ISBN)-1):
+        unique_id.append(int(ISBN[i]))
+    actual_check_digit = ISBN[-1:]
+
+    # Multiply the second, fourth, sixth, ... elements by three
+    times_three=[]
+    for x in range(1,len(unique_id)+1):
+        if x % 2 == 0:
+            times_three.append(unique_id[x-1] * 3)
+        else:
+            times_three.append(unique_id[x-1])
+       
+
+    # Calculate the sum of the numbers
+    sum_new_digits = 0
+    for x in range(0,len(times_three)):
+        sum_new_digits += times_three[x]
+        
+    # Take the sum mod 10, and subtract from 10
+    sum_mod_10 = sum_new_digits % 10
+    if sum_mod_10 == 0:
+        sum_mod_10 = 10
+    check_digit = 10 - sum_mod_10
+
+    # Check that the calculated check digit is equal to the given check digit
+    if check_digit == int(actual_check_digit):
+        return "valid."
+    else:
+        return "invalid."
+while True:
+    choice = input("Enter the ISBN number\n—> ")
+    if len(choice) == 13:
+        if choice.isnumeric is True:#doesnt register as numeric
+            break
+        else:
+            print("That ISBN number is incorrect.")
+    else:
+        print("That ISBN number is incorrect.")
+print("ISBNcheck() returns " + ISBNcheck(choice))
