@@ -1,0 +1,43 @@
+print("=============================================================")
+print("                   Welcome to Hangman!")
+
+word = list("computing")
+guessed_word = list("_________")
+lives = 10
+wordGuessed = False
+incorrectGuesses = list()
+
+while lives>=1 and not wordGuessed:
+    
+    print("=============================================================")
+    print("                    " + " ".join(guessed_word))
+    print("=============================================================")
+    if len(incorrectGuesses) > 1:
+        print("INCORRECT : " + ", ".join(incorrectGuesses))
+    else:
+        print("INCORRECT : " + " ".join(incorrectGuesses))
+    print("=============================================================")
+    print()
+
+    user_guess = input( "Guess a letter/word! (" + str(lives) + \
+                        " lives remaining)\n—> ")
+    print()
+    # Check if letter is in the word
+    letter_in_word = False
+    for i in range(len(word)):
+        if user_guess == word[i] or user_guess == word[i].upper():
+            guessed_word[i] = user_guess.upper()
+            letter_in_word = True
+    if letter_in_word == False:
+        lives -= 1
+        incorrectGuesses.append(user_guess.upper())
+
+
+    if guessed_word == word:
+        print(" ".join(guessed_word))
+        print("You have guessed the word correctly!")
+        print("=============================================================")
+        wordGuessed=True
+    elif lives < 1:
+        print(f"You failed to guess the word correctly, the word was '{word}'.") 
+        print("=============================================================")
