@@ -1,16 +1,28 @@
+import random as r
+import pandas as pd
+
 print("=============================================================")
 print("                   Welcome to Hangman!")
-
-word = list("computing")
-guessed_word = list("_________")
+with open ("text.txt", "r") as f:
+    frame = pd.read_csv(f)
+    index = r.randint(1, 24)
+    eords = list()
+    for i in frame:
+        eords.append(i)
+    chosenWord = eords[index-1]
+underscores = ""
+for i in range(len(chosenWord)):
+    underscores += "_"
+word = list(chosenWord)
+guessed_word = list(underscores)
 lives = 10
 wordGuessed = False
 incorrectGuesses = list()
 
 while lives>=1 and not wordGuessed:
-    
+
     print("=============================================================")
-    print("                    " + " ".join(guessed_word))
+    print("                   " + " ".join(guessed_word))
     print("=============================================================")
     if len(incorrectGuesses) > 1:
         print("INCORRECT : " + ", ".join(incorrectGuesses))
@@ -25,19 +37,22 @@ while lives>=1 and not wordGuessed:
     # Check if letter is in the word
     letter_in_word = False
     for i in range(len(word)):
-        if user_guess == word[i] or user_guess == word[i].upper():
+        if user_guess == word[i] or user_guess.upper() == word[i]:
             guessed_word[i] = user_guess.upper()
             letter_in_word = True
     if letter_in_word == False:
         lives -= 1
-        incorrectGuesses.append(user_guess.upper())
+        if user_guess not in incorrectGuesses and user_guess.upper() not in incorrectGuesses:
+            incorrectGuesses.append(user_guess.upper())
 
 
     if guessed_word == word:
-        print(" ".join(guessed_word))
-        print("You have guessed the word correctly!")
+        print("=============================================================")
+        print("                      " + " ".join(guessed_word))
+        print("=============================================================")
+        print("           You have guessed the word correctly!")
         print("=============================================================")
         wordGuessed=True
     elif lives < 1:
-        print(f"You failed to guess the word correctly, the word was '{word}'.") 
+        print(f"You failed to guess the word correctly, the word was '{chosenWord}'.") 
         print("=============================================================")
