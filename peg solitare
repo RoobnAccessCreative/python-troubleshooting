@@ -1,0 +1,63 @@
+import re
+
+
+def find(board,choice):
+    for i in range(0, len(board)):
+        for j in range(0, len(board[0])):
+            if choice == board[i][j]:
+                return i, j
+def show(grid):
+    print()
+    for i in grid:
+        new_i = str(i).replace(']', '')
+        new_i = str(new_i).replace('[', '')
+        new_i = str(new_i).replace('"', '')
+        new_i = str(new_i).replace("'", '')
+        new_i = str(new_i).replace(',', '')
+        print(new_i)
+    print()
+
+space = " "
+grid = [["a",space,"c","d"],["e","f","g","h"],["i","j","k","l"],["m","n","o","p"]]
+while True:
+    show(grid)
+    choice = input("Enter a letter: ")
+    direction = input("Enter a direction (u,d,l,r): ")
+
+    regex_c = re.compile("^[a-p]$") 
+    regex_d = re.compile("^[udlr]$")
+    c = regex_c.fullmatch(choice)
+    d = regex_d.fullmatch(direction)
+    if bool(c) is False or bool(d) is False:
+        print("One or more inputs is wrong.")
+        continue
+    
+    row, column = find(grid, choice)
+
+    if direction == "r":
+        if column + 2 < len(grid[0]):
+            if grid[row][column + 2] == space:
+                grid[row][column] = space
+                grid[row][column + 1] = space
+                grid[row][column + 2] = choice
+
+    if direction == "l":
+        if column - 2 >= 0:
+            if grid[row][column - 2] == space:
+                grid[row][column] = space
+                grid[row][column - 1] = space
+                grid[row][column - 2] = choice
+
+    if direction == "u":
+        if row - 2 >= 0:
+            if grid[row - 2][column] == space:
+                grid[row][column] = space
+                grid[row - 1][column] = space
+                grid[row - 2][column] = choice
+
+    if direction == "d":
+        if row + 2 < len(grid):
+            if grid[row + 2][column] == space:
+                grid[row][column] = space
+                grid[row + 1][column] = space
+                grid[row + 2][column] = choice
